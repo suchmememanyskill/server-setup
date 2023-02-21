@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  mcserverapi:
+    image: ghcr.io/suchmememanyskill/mcserverapi:latest
+    container_name: mcserverapi
+    ports:
+      - 25565:25565/tcp
+      - 25565:25565/udp
+      - 1337:8080
+    environment:
+      - Config__Memory=3
+      - Config__JavaFlags=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1
+    volumes:
+      - ./jar_cache:/app/__jar_cache
+      - ./mc_maps:/app/__mc_maps
+      - ./mc_server_mappings:/app/__mc_server_mappings
+      - ./mc_maps_deleted:/app/__del_mc_maps
+    restart: unless-stopped
+
+  mcserverbot:
+    image: ghcr.io/suchmememanyskill/mcserverbot:latest
+    container_name: mcserverbot
+    environment:
+      - token=notoken4u
+      - logChannel=nochannel4u
+      - apiUrl=http://mcserverapi:8080
+      - publicApiUrl=nourl4u
+    depends_on:
+      - mcserverapi
+    restart: unless-stopped

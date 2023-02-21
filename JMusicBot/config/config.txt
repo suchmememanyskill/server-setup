@@ -1,0 +1,3 @@
+token = notoken4u
+owner = 249186838592487425
+prefix = ";;"

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  yuzu-server:
+    image: yuzuemu/yuzu-multiplayer-dedicated
+    container_name: yuzu-server
+#    restart: unless-stopped
+    ports:
+      - 5000:5000/udp
+    command:
+      - --room-name
+      - suchmememanyskill's epic private room
+      - --room-description
+      - Sup
+      - --preferred-game
+      - Super Smash Bros Ultimate
+      - --preferred-game-id
+      - 01006A800016E000
+      - --port
+      - "5000"
+      - --max_members
+      - "8"
+      - --web-api-url
+      - https://api.yuzu-emu.org
+      - --token
+      - notoken4u
+      - --password
+      - nopassword4u

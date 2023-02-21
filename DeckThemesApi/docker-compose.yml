@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  deckthemesapi:
+    image: ghcr.io/suchmememanyskill/cssloader-themeapi:latest
+    ports:
+      - 1339:80
+    restart: unless-stopped
+    container_name: deckthemesapi
+    volumes:
+      - ./blob:/app/blob
+      - ./tempblob:/app/tempblob
+      - ./sql:/app/sql
+      - ./appsettings.json:/app/appsettings.json

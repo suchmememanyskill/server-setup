@@ -1,0 +1,6 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name nourl4u;
+	return 302 https://$server_name$request_uri;
+}
